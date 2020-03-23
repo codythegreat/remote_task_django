@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        {% if messages %}
+            {% for message in messages %}
+                alert(message);
+            {% endfor %}
+        {% endif %}
+    </script>
+    <meta name="description" content="Remote Task Website">
+    <meta name="author" content="Cody Maxie">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="UTF-8" />
+    <title>Task App</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet"> 
+</head>
+<body>
+    <div id="nav-bar">
+        <ul>
+            <li><a href="index">Task App</a></li>
+            {% if not request.user.is_authenticated %}
+            <li><a href="{% url 'login' %}">Log In</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
+            {% else %}
+            <li><a href="{% url 'logout' %}">Log Out</a></li>
+            {% endif %}
+        </ul>
+    </div>
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

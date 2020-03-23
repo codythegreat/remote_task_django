@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tz %}
+{% block content %}
+<style>
+body {
+    background-color: #333;
+}
+div {
+    text-align: center; 
+    background-color: #333; 
+    color: #fff;
+}
+label {
+    display: block;
+}
+</style>
+<div>
+  <p>Login to your account</p>
+  <form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Login">
+  </form>
+</div>
+{% endblock %}

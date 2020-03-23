@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tz %}
+{% block content %}
+<style>
+body {
+    background: #333;
+}
+div {
+    text-align: center; 
+    background-color: #333; 
+    color: #fff;
+}
+div p {
+    padding: 1rem;
+}
+ul {
+    display: none;
+}
+label {
+    display: block;
+}
+.helptext {
+    display: block;
+    font-size: .8rem;
+}
+p {
+    margin: 0;
+    padding: 0;
+}
+</style>
+<div>
+  <p>Register your account</p>
+  <form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Register">
+  </form>
+</div>
+{% endblock %}

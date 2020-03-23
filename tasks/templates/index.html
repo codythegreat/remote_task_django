@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% load static %}
+{% load tz %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'index.css' %}">
+<div id="user-panel">
+<div class="body">
+{% if request.user.is_authenticated %}
+  <p id="body-header">
+    <span id="header-date">{% now "SHORT_DATETIME_FORMAT" %}</span>
+    <span  id="header-tasks"><strong>Tasks to complete: </strong> {{ tasksOutstanding }}</span>
+  </p>
+
+  <div id="body-analytics">
+  {% for t in team %}
+    <p>Team: <span id="team-name">{{t}}</span></p>
+    <div id="team-info-container">
+      <div id="team-member-container">
+      {% for u in t.users.all %}
+        {% if u != request.user %}
+          {% if u == t.owner %}
+        <p><span class="user team-owner">{{u}}</span> <span class="team-user-task-count">{{u.tasksOutstanding}}</span></p>
+          {% else %}
+        <p><span class="user team-member">{{u}}</span> <span class="team-user-task-count">{{u.tasksOutstanding}}</span></p>
+          {% endif %}
+       
+        {% endif %}
+      {% endfor %}
+      </div>
+      <div id="team-member-tasks">
+      {% for tT in teamTasks %}
+        {% for tt in tT %}
+          {% for u in t.users.all %}
+            {% if tt.parentUser == u and tt.parentUser != request.user and tt.complete != True %}
+        <p><span class="name">{{u}}</span><span class="task">{{tt}}</span><span class="task date">Due: {{tt.endDate}}</span></p>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      {% endfor %}
+      </div>
+    </div>
+  {% empty %}
+
+    <p>You are not assigned to a team</p>
+    <div id="team-search-bar">
+      <form method="get">
+        <input type="text" name="q" id="id_q" placeholder="Search for existing team" value={{query}}>
+      </form>
+    </div>
+    <div id="team-query-results">
+        {% for team in teamQueries %}
+        {% if team.private != True %}
+      <form class="add-existing-team-btn" action="" method="post">{% csrf_token %}
+          <input type="number" name="teamPrimKey" value="{{ team.pk }}" style="display: none;">
+          <input type="submit" value="{{team.name}}">
+          <p id="team-owner">Owner: {{team.owner}}</p>
+      </form>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <p>Or create a new team</p>
+    <form id="create-team-form" action="" method="post">{% csrf_token %}
+        <label for="name">Name: </label>
+        <input id="create-team-name" type="text" name="name" value="{{ team.name }}">
+        <label for="private">Private: </label>
+        <input id="create-team-private" type="checkbox" name="private">
+        <input id="create-team-submit" type="submit" value="Create Team">
+    </form>
+  {% endfor %}
+  </div>
+
+  <div id="create-task-container">
+    <p>NEW TASK</p>
+    <form action="" method="post">{% csrf_token %}
+        <label for="title">Title: </label>
+        <input id="create-task-title" type="text" name="title" value="{{ title }}">
+        <label for="desc">Description: </label>
+        <input id="create-task-desc" type="text" name="desc" value="{{ desc }}">
+        <label for="date">Due Date: </label>
+        <input id="create-task-endDate" type="date" name="endDate" value="{{ date }}">
+        <input id="create-task-submit" type="submit" value="Do It">
+    </form>
+  </div>
+
+</div>
+
+
+<div id="task-sidebar">
+    <h1 id="sidebar-header">My Tasks</h1>
+    <div id="sidebar-legend">
+        <div class="legend-type"><div id="past-due"></div><p id="legend-past-due-text">Past Due</p></div>
+        <div class="legend-type"><div id="coming-up"></div><p id="legend-coming-up-text">Coming Up</p></div>
+        <div class="legend-type"><div id="completed"></div><p id="legend-completed-text">Completed</p></div>
+    </div>
+
+  {% for task in tasks %}
+
+{% comment %} past due tasks {% endcomment %}
+    {% if not task.complete %}
+
+      {% if task.endDate != None and task.isPastDue %}
+    <div class="task task-past-due">
+      <span class="atrib-text">Title: </span>
+      <span class="value-text">{{task.title}}</span>
+      <span class="atrib-text desc">Desc: </span>
+      <span class="value-text desc">{{task.description}}</span>
+      <span class="atrib-text">Due: </span>
+      <span class="value-text">{{task.endDate}}</span>
+
+      {% for comment in taskComments %}
+      {% if comment.parentTask == task %}
+      <span class="atrib-text comment">{{comment.parentUser}}:</span>
+      <span class="value-text comment">{{comment.content}}</span>
+      {% endif %}
+      {% endfor %}
+
+      <form action='' method='POST'>{% csrf_token %}
+        <input id="task-to-complete" type="input" name="taskId" value="{{ task.pk}}">
+        <button class="complete" type='submit'>Complete</button>
+      </form>
+    </div>
+    
+
+{% comment %} incomplete tasks {% endcomment %}
+      {% else %}
+    <div class="task task-noncomplete">
+      <span class="atrib-text">Title: </span>
+      <span class="value-text">{{task.title}}</span>
+      <span class="atrib-text desc">Desc: </span>
+      <span class="value-text desc">{{task.description}}</span>
+      <span class="atrib-text">Due: </span>
+      <span class="value-text">{{task.startDate}}</span>
+
+      
+      {% for comment in taskComments %}
+      {% if comment.parentTask == task %}
+      <span class="atrib-text comment">{{comment.parentUser}}:</span>
+      <span class="value-text comment">{{comment.content}}</span>
+      {% endif %}
+      {% endfor %}
+
+      <form action='' method='POST'>{% csrf_token %}
+        <input id="task-to-complete" type="input" name="taskId" value="{{ task.pk }}">
+        <button class="complete" type='submit'>Complete</button>
+      </form>
+    </div>
+      {% endif %}
+
+{% comment %} complete tasks {% endcomment %}
+    {% elif task.complete %}
+    <div class="task task-complete">
+      <span class="atrib-text">Title: </span>
+      <span class="value-text">{{task.title}}</span>
+      <span class="atrib-text desc">Desc: </span>
+      <span class="value-text desc">{{task.description}}</span>
+      <span class="atrib-text">Completed: </span>
+      <span class="value-text">{{task.completeDate}}</span>
+
+      {% for comment in taskComments %}
+      {% if comment.parentTask == task %}
+      <span class="atrib-text comment">{{comment.parentUser}}:</span>
+      <span class="value-text comment">{{comment.content}}</span>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+    {% endif %}
+
+  {% endfor %}
+  </div>
+
+
+{% endif %}
+</div>
+<script
+src="https://code.jquery.com/jquery-3.4.1.min.js"
+integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+crossorigin="anonymous"></script>
+<script src="{% static 'index.js' %}"></script>
+{% endblock %}
