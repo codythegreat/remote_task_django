@@ -1,6 +1,6 @@
 from django.db import models
 from users.models import CustomUser
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 
 class Task(models.Model):
@@ -62,6 +62,18 @@ class Task(models.Model):
     # return true if end date and past due
     def isPastDue(self):
         return self.endDate < datetime.now(timezone.utc)
+
+    def isDayOld(self):
+        return self.startDate > datetime.now(timezone.utc) - timedelta(days=1)
+
+    def isWeekOld(self):
+        return self.startDate > datetime.now(timezone.utc) - timedelta(days=7)
+
+    def isMonthOld(self):
+        return self.startDate > datetime.now(timezone.utc) - timedelta(days=30)
+
+
+
 
 class Team(models.Model):
     # name of the team
