@@ -28,8 +28,7 @@
       {% endfor %}
       </div>
       <div id="team-member-tasks">
-      {% for tT in teamTasks %}
-        {% for tt in tT %}
+        {% for tt in teamTasks.0 %}
           {% for u in t.users.all %}
             {% if tt.parentUser == u and tt.parentUser != request.user and tt.complete != True %}
         <p class="team-task"><span class="name">{{u}}</span><span class="task">{{tt}}</span><span class="task date">Due: {{tt.endDate}}</span></p>
@@ -44,7 +43,6 @@
             {% endif %}
           {% endfor %}
         {% endfor %}
-      {% endfor %}
       </div>
     </div>
   {% empty %}
@@ -80,12 +78,10 @@
   <div id="create-task-container">
     <p>NEW TASK</p>
     <form action="" method="post">{% csrf_token %}
-        <label for="title">Title: </label>
-        <input id="create-task-title" type="text" name="title" value="{{ title }}">
-        <label for="desc">Description: </label>
-        <input id="create-task-desc" type="text" name="desc" value="{{ desc }}">
+        <input id="create-task-title" type="text" name="title" value="{{ title }}" placeholder="Title">
+        <input id="create-task-desc" type="text" name="desc" value="{{ desc }}" placeholder="Description">
         <label for="date">Due Date: </label>
-        <input id="create-task-endDate" type="date" name="endDate" value="{{ date }}">
+        <input id="create-task-end-date" type="date" name="endDate" value="{{ date }}">
         <input id="create-task-submit" type="submit" value="Do It">
     </form>
   </div>

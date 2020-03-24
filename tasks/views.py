@@ -54,7 +54,7 @@ def index(request):
         # on GET or redirect, simply build the context and return
         else:
             return render(request, 'index.html', context=buildIndexContext(request))
-            
+
     # if user not authenticated, redirect to login page
     else:
         return redirect('login')
@@ -64,7 +64,14 @@ def parseCreateTaskForm(form, user):
     title = form.cleaned_data['title']
     desc = form.cleaned_data['desc']
     endDate = form.cleaned_data['endDate']
-    t = Task(title=title, description=desc, endDate=endDate, startDate=datetime.datetime.now(), createdOnDate=datetime.datetime.now(), parentUser=user)
+    t = Task(
+        title=title, 
+        description=desc, 
+        endDate=endDate, 
+        startDate=datetime.datetime.now(), 
+        createdOnDate=datetime.datetime.now(), 
+        parentUser=user
+    )
     user.tasksOutstanding += 1
     user.save()
     t.save()
