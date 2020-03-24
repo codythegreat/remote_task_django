@@ -1,0 +1,375 @@
+@import '_colors';
+@import '_mixins';
+
+#user-panel {
+    display: flex;
+    flex-direction: row;
+    min-height: 95vh;
+    @include mobile {
+        flex-direction: column;
+    }
+    .body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        background-color: #333;
+        width: 70vw;
+        height: 95vh;
+        color: $gry-wht;
+        text-align: center;
+        @include mobile {
+            width: 100%;
+            font-size: .8rem;
+        }
+
+        #body-header {
+            font-size: 2rem;
+            @include mobile {
+                font-size: 1rem;
+                margin: 1.5rem 0;
+            }
+            #header-date {
+                background-color: #222;
+                padding: 1rem;
+                @include mobile {
+                    padding: .5rem;
+                }
+            }
+            #header-tasks {
+                background-color: #111;
+                padding: 1rem;
+                @include mobile {
+                    padding: .5rem;
+                }
+            }
+        }
+        #team-search-bar {margin-bottom: .5rem;}
+        #team-query-results {
+            margin: 1rem auto;
+            background-color: #222;
+            width: 50vw;
+            max-height: 20vh;
+            overflow-y: auto;
+            border: 1px solid #000;
+            .add-existing-team-btn {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                margin: .5rem auto;
+                p {
+                    color: #999;
+                    margin: .5rem;
+                }
+            }
+        }
+
+        // team insights
+        #team-name {
+            color: $lgt-grn-mnt;
+            font-weight: bold;
+        }
+        #team-info-container {
+            display: flex;
+            width: 60vw;
+            max-height: 55vh;
+            margin: 1rem auto;
+            background-color: #111;
+
+            @include mobile {
+                width: 100vw;
+                margin: 1rem 0 0 0;
+            }
+
+            #team-member-container {
+                margin: 1rem 0 1rem 1rem;
+                background-color: #222;
+                flex-grow: 1;
+                overflow-y: auto;
+                min-width: 10vw;
+                // for mobile devices, only show team member tasks
+                @include mobile {
+                    display: none;
+                }
+                p {
+                    padding: 1rem 0;
+                    margin: 0 auto;
+                    width: 100%;
+                }
+                .team-owner {
+                    color: #fff;
+                }
+                .team-user-task-count {
+                    background-color: $lgt-grn-mnt;
+                    color: $drk-blk;
+                    padding: .2rem;
+                }
+            }
+            #team-member-tasks {
+                text-align: left;
+                margin: 1rem ;
+                background-color: #222;                
+                flex-grow: 2;
+                overflow-y: auto;
+                
+                line-height: 300%;
+
+                @include mobile {
+                    margin: .5rem;
+                    font-size: .8rem;
+                    text-align: center;
+                }
+                p {
+                    margin: 1.2rem 1rem 0 1rem;
+                    @include mobile {
+                        margin: .5rem;
+                    }
+                }
+                span {
+                    display: block;
+                    @include mobile{
+                        padding: .2rem;
+                        line-height: 2;
+                    }
+                    &.name {
+                        background-color: #000;
+                        padding: .5rem 1rem .5rem .5rem;
+                    }
+                    &.task {
+                        background-color: $gry-wht;
+                        color: #000;
+                        padding: .5rem;
+                        &.date {
+                            color: $drk-blk;
+                        }
+                    }
+                }
+
+                .team-task-comment {
+                    padding: .3rem .1rem;
+                    background-color: #111;
+                    margin: 0 1rem 0 1rem;
+                    line-height: 1rem;
+                    @include mobile {
+                        margin: 0 .5rem;
+                    }
+                    .comment-user {
+                        color: $lgt-grn-mnt;
+                        display: inline;
+
+                    }
+                }
+
+                form {
+                    display: flex;
+                    flex-direction: row;
+                    margin: 0 1rem 0 1rem;
+                    border-top: 5px solid #222;
+                    @include mobile {
+                        margin: 0 .5rem 0 .5rem;
+                    }
+                    input {
+                        padding: .2rem;
+                    }
+                    .task-to-comment {
+                        display: none;
+                    }
+                    .comment-content {
+                        flex-grow: 3;
+                        border: none;
+                        background-color: #111;
+                        color: $gry-wht;
+                        @include mobile {
+                            width: 65%;
+                        }
+                    }
+                    .submit-button {
+                        flex-grow: 1;
+                        background-color: $gry-wht;
+                        color: #111;
+                        border: none;
+                        &:hover {
+                            cursor: pointer;
+                        }
+                        @include mobile {
+                            width: 35%;
+                        }
+                    }
+                }
+
+            }
+        }
+
+        #create-task-container {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height: 20vh;
+            width: 70vw;
+            background-color: #000;
+            align-self: flex-end;
+            margin-top: auto;
+            @include mobile {
+                form {
+                    display: flex;
+                    flex-direction: column;
+                    input {
+                        border: 1px solid #000;
+                        background-color: #222;
+                        color: $gry-wht;
+                        width: 80%;
+                        padding: .1rem 0;
+                        margin: auto;
+                    }
+                }
+                width: 100%;
+                justify-content: start;
+            }
+            p {
+                @include mobile {
+                    margin-top: .1rem;
+                }
+            }
+            input {
+                margin: 0 .5rem;
+            }
+        }
+    }
+    #task-sidebar {
+        height: 95vh;
+        width: 30vw;
+        background-color: #222;
+        overflow-y: auto;
+        @include mobile {
+            width: 100%;
+            height: 80vh;
+            background-color: #111;
+        }
+
+        #sidebar-header {
+            margin: 0;
+            text-align: center;
+            color: $lgt-grn-mnt;
+        }
+
+        #sidebar-legend {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            height: 1rem;
+            margin-bottom: 1rem;
+            .legend-type {
+                display: flex;
+                flex-direction: row;
+                div {
+                    margin: 10px 5px 0 10px;
+                    width: 10px;
+                    height: 10px;
+                }
+                #past-due {background-color: $lgt-blu-mnt;}
+                #coming-up {background-color: $lgt-grn-mnt;}
+                #completed {background-color: $drk-grn-gry;}
+                p {
+                    font-size: .8rem;
+                    line-height: .5rem;
+                    color: $gry-wht;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+        .task {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            width: 100%;
+            margin: auto;
+            border-bottom: 1px solid #000;
+        }
+        .task-noncomplete {
+            background-color: $lgt-grn-mnt;
+            color: $drk-blk;
+        }
+        .task-past-due {
+            background-color: $lgt-blu-mnt;
+            color: $gry-wht;
+        }
+        .task-complete {
+            background-color: $drk-grn-gry;
+            color: $gry-wht;
+        }
+
+        span {
+            display: block;
+            text-align: center;
+            background-color: $gry-wht;
+            color: $drk-blk;
+        }
+        .atrib-text {padding: .5rem 0;width: 38%; background-color: #292929; color: $gry-wht;margin-left: 2%;}
+        .value-text {padding: .5rem 1%;width: 58%; background-color: #222; color: #fff}
+
+        // desc is hidden until toggled with jquery
+        .desc {
+            display: none;
+        }
+
+        // comments hidden until toggled with jquery
+        .comment {
+            display: none;
+            color: #fff;
+
+        }
+
+        // complete button hidden until toggled with jquery
+        .task-controls {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            width: 98%;
+            margin-left: 2%;
+            margin-left: auto;
+            background-color: #191919;
+            form {
+                background-color: #191919;
+                padding: .5rem 0;
+                text-align: center;
+                display: none;
+                
+                button {
+                    background-color: #000;
+                    color: $gry-wht;
+                    border: none;
+                    padding: .4rem;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                .comment-input {
+                    min-width: 18vw;
+                    padding: .4rem;
+                    border-radius: 0;
+                    background-color: #444;
+                    color: #fff;
+                    border: 1px solid #000;
+                }
+                .complete {
+                    margin-top: 1px;
+                    color: $lgt-grn-mnt;
+                }
+            }
+        }
+
+        .task-enlarge-button {
+            width: 98%;
+            margin-left: 2%;
+            border: none;
+            background-color: #191919;
+            color: #999;
+            &:hover {
+                background-color: #222;
+                color: #959595;
+            }
+        }
+    }
+}

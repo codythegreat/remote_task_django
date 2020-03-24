@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  padding: 0;
+  background: #C1C1C1;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+#nav-bar {
+  height: 5vh;
+}
+
+#nav-bar ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  list-style: none;
+  background-color: #111;
+  color: #000;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+#nav-bar li {
+  line-height: 5vh;
+  height: 5vh;
+  width: 7rem;
+}
+
+#nav-bar a {
+  text-decoration: none;
+  color: #32DE8A;
+  display: block;
+  -webkit-transition: .3s background-color;
+  transition: .3s background-color;
+}
+
+#nav-bar a:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+/*# sourceMappingURL=base.css.map */

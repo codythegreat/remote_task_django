@@ -1,0 +1,551 @@
+#user-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  min-height: 95vh;
+}
+
+@media (max-width: 800px) {
+  #user-panel {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+
+#user-panel .body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  background-color: #333;
+  width: 70vw;
+  height: 95vh;
+  color: #C1C1C1;
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body {
+    width: 100%;
+    font-size: .8rem;
+  }
+}
+
+#user-panel .body #body-header {
+  font-size: 2rem;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #body-header {
+    font-size: 1rem;
+    margin: 1.5rem 0;
+  }
+}
+
+#user-panel .body #body-header #header-date {
+  background-color: #222;
+  padding: 1rem;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #body-header #header-date {
+    padding: .5rem;
+  }
+}
+
+#user-panel .body #body-header #header-tasks {
+  background-color: #111;
+  padding: 1rem;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #body-header #header-tasks {
+    padding: .5rem;
+  }
+}
+
+#user-panel .body #team-search-bar {
+  margin-bottom: .5rem;
+}
+
+#user-panel .body #team-query-results {
+  margin: 1rem auto;
+  background-color: #222;
+  width: 50vw;
+  max-height: 20vh;
+  overflow-y: auto;
+  border: 1px solid #000;
+}
+
+#user-panel .body #team-query-results .add-existing-team-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin: .5rem auto;
+}
+
+#user-panel .body #team-query-results .add-existing-team-btn p {
+  color: #999;
+  margin: .5rem;
+}
+
+#user-panel .body #team-name {
+  color: #32DE8A;
+  font-weight: bold;
+}
+
+#user-panel .body #team-info-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 60vw;
+  max-height: 55vh;
+  margin: 1rem auto;
+  background-color: #111;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #team-info-container {
+    width: 100vw;
+    margin: 1rem 0 0 0;
+  }
+}
+
+#user-panel .body #team-info-container #team-member-container {
+  margin: 1rem 0 1rem 1rem;
+  background-color: #222;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  overflow-y: auto;
+  min-width: 10vw;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #team-info-container #team-member-container {
+    display: none;
+  }
+}
+
+#user-panel .body #team-info-container #team-member-container p {
+  padding: 1rem 0;
+  margin: 0 auto;
+  width: 100%;
+}
+
+#user-panel .body #team-info-container #team-member-container .team-owner {
+  color: #fff;
+}
+
+#user-panel .body #team-info-container #team-member-container .team-user-task-count {
+  background-color: #32DE8A;
+  color: #2E3532;
+  padding: .2rem;
+}
+
+#user-panel .body #team-info-container #team-member-tasks {
+  text-align: left;
+  margin: 1rem;
+  background-color: #222;
+  -webkit-box-flex: 2;
+      -ms-flex-positive: 2;
+          flex-grow: 2;
+  overflow-y: auto;
+  line-height: 300%;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #team-info-container #team-member-tasks {
+    margin: .5rem;
+    font-size: .8rem;
+    text-align: center;
+  }
+}
+
+#user-panel .body #team-info-container #team-member-tasks p {
+  margin: 1.2rem 1rem 0 1rem;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #team-info-container #team-member-tasks p {
+    margin: .5rem;
+  }
+}
+
+#user-panel .body #team-info-container #team-member-tasks span {
+  display: block;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #team-info-container #team-member-tasks span {
+    padding: .2rem;
+    line-height: 2;
+  }
+}
+
+#user-panel .body #team-info-container #team-member-tasks span.name {
+  background-color: #000;
+  padding: .5rem 1rem .5rem .5rem;
+}
+
+#user-panel .body #team-info-container #team-member-tasks span.task {
+  background-color: #C1C1C1;
+  color: #000;
+  padding: .5rem;
+}
+
+#user-panel .body #team-info-container #team-member-tasks span.task.date {
+  color: #2E3532;
+}
+
+#user-panel .body #team-info-container #team-member-tasks .team-task-comment {
+  padding: .3rem .1rem;
+  background-color: #111;
+  margin: 0 1rem 0 1rem;
+  line-height: 1rem;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #team-info-container #team-member-tasks .team-task-comment {
+    margin: 0 .5rem;
+  }
+}
+
+#user-panel .body #team-info-container #team-member-tasks .team-task-comment .comment-user {
+  color: #32DE8A;
+  display: inline;
+}
+
+#user-panel .body #team-info-container #team-member-tasks form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: 0 1rem 0 1rem;
+  border-top: 5px solid #222;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #team-info-container #team-member-tasks form {
+    margin: 0 .5rem 0 .5rem;
+  }
+}
+
+#user-panel .body #team-info-container #team-member-tasks form input {
+  padding: .2rem;
+}
+
+#user-panel .body #team-info-container #team-member-tasks form .task-to-comment {
+  display: none;
+}
+
+#user-panel .body #team-info-container #team-member-tasks form .comment-content {
+  -webkit-box-flex: 3;
+      -ms-flex-positive: 3;
+          flex-grow: 3;
+  border: none;
+  background-color: #111;
+  color: #C1C1C1;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #team-info-container #team-member-tasks form .comment-content {
+    width: 65%;
+  }
+}
+
+#user-panel .body #team-info-container #team-member-tasks form .submit-button {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  background-color: #C1C1C1;
+  color: #111;
+  border: none;
+}
+
+#user-panel .body #team-info-container #team-member-tasks form .submit-button:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #team-info-container #team-member-tasks form .submit-button {
+    width: 35%;
+  }
+}
+
+#user-panel .body #create-task-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 20vh;
+  width: 70vw;
+  background-color: #000;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  margin-top: auto;
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #create-task-container {
+    width: 100%;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: start;
+  }
+  #user-panel .body #create-task-container form {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  #user-panel .body #create-task-container form input {
+    border: 1px solid #000;
+    background-color: #222;
+    color: #C1C1C1;
+    width: 80%;
+    padding: .1rem 0;
+    margin: auto;
+  }
+}
+
+@media (max-width: 800px) {
+  #user-panel .body #create-task-container p {
+    margin-top: .1rem;
+  }
+}
+
+#user-panel .body #create-task-container input {
+  margin: 0 .5rem;
+}
+
+#user-panel #task-sidebar {
+  height: 95vh;
+  width: 30vw;
+  background-color: #222;
+  overflow-y: auto;
+}
+
+@media (max-width: 800px) {
+  #user-panel #task-sidebar {
+    width: 100%;
+    height: 80vh;
+    background-color: #111;
+  }
+}
+
+#user-panel #task-sidebar #sidebar-header {
+  margin: 0;
+  text-align: center;
+  color: #32DE8A;
+}
+
+#user-panel #task-sidebar #sidebar-legend {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 1rem;
+  margin-bottom: 1rem;
+}
+
+#user-panel #task-sidebar #sidebar-legend .legend-type {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+#user-panel #task-sidebar #sidebar-legend .legend-type div {
+  margin: 10px 5px 0 10px;
+  width: 10px;
+  height: 10px;
+}
+
+#user-panel #task-sidebar #sidebar-legend .legend-type #past-due {
+  background-color: #A2E8DD;
+}
+
+#user-panel #task-sidebar #sidebar-legend .legend-type #coming-up {
+  background-color: #32DE8A;
+}
+
+#user-panel #task-sidebar #sidebar-legend .legend-type #completed {
+  background-color: #35524A;
+}
+
+#user-panel #task-sidebar #sidebar-legend .legend-type p {
+  font-size: .8rem;
+  line-height: .5rem;
+  color: #C1C1C1;
+}
+
+#user-panel #task-sidebar #sidebar-legend .legend-type p:hover {
+  cursor: pointer;
+}
+
+#user-panel #task-sidebar .task {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 100%;
+  margin: auto;
+  border-bottom: 1px solid #000;
+}
+
+#user-panel #task-sidebar .task-noncomplete {
+  background-color: #32DE8A;
+  color: #2E3532;
+}
+
+#user-panel #task-sidebar .task-past-due {
+  background-color: #A2E8DD;
+  color: #C1C1C1;
+}
+
+#user-panel #task-sidebar .task-complete {
+  background-color: #35524A;
+  color: #C1C1C1;
+}
+
+#user-panel #task-sidebar span {
+  display: block;
+  text-align: center;
+  background-color: #C1C1C1;
+  color: #2E3532;
+}
+
+#user-panel #task-sidebar .atrib-text {
+  padding: .5rem 0;
+  width: 38%;
+  background-color: #292929;
+  color: #C1C1C1;
+  margin-left: 2%;
+}
+
+#user-panel #task-sidebar .value-text {
+  padding: .5rem 1%;
+  width: 58%;
+  background-color: #222;
+  color: #fff;
+}
+
+#user-panel #task-sidebar .desc {
+  display: none;
+}
+
+#user-panel #task-sidebar .comment {
+  display: none;
+  color: #fff;
+}
+
+#user-panel #task-sidebar .task-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  width: 98%;
+  margin-left: 2%;
+  margin-left: auto;
+  background-color: #191919;
+}
+
+#user-panel #task-sidebar .task-controls form {
+  background-color: #191919;
+  padding: .5rem 0;
+  text-align: center;
+  display: none;
+}
+
+#user-panel #task-sidebar .task-controls form button {
+  background-color: #000;
+  color: #C1C1C1;
+  border: none;
+  padding: .4rem;
+}
+
+#user-panel #task-sidebar .task-controls form button:hover {
+  cursor: pointer;
+}
+
+#user-panel #task-sidebar .task-controls form .comment-input {
+  min-width: 18vw;
+  padding: .4rem;
+  border-radius: 0;
+  background-color: #444;
+  color: #fff;
+  border: 1px solid #000;
+}
+
+#user-panel #task-sidebar .task-controls form .complete {
+  margin-top: 1px;
+  color: #32DE8A;
+}
+
+#user-panel #task-sidebar .task-enlarge-button {
+  width: 98%;
+  margin-left: 2%;
+  border: none;
+  background-color: #191919;
+  color: #999;
+}
+
+#user-panel #task-sidebar .task-enlarge-button:hover {
+  background-color: #222;
+  color: #959595;
+}
+/*# sourceMappingURL=index.css.map */
