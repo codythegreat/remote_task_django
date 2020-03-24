@@ -13,7 +13,7 @@ from tasks.models import Task, Comment, Team
 from users.models import CustomUser
 
 # Create new task, complete task, and create new team forms
-from tasks.forms import CreateTaskForm, CompleteTaskForm, CreateTeamForm, JoinTeamForm
+from tasks.forms import CreateTaskForm, CompleteTaskForm, CreateTeamForm, JoinTeamForm, CommentOnTask
 
 # for saving form inputs
 import datetime
@@ -28,6 +28,7 @@ def index(request):
             completeForm = CompleteTaskForm(request.POST)
             createTeamForm = CreateTeamForm(request.POST)
             joinTeamForm = JoinTeamForm(request.POST)
+            commentOnTaskForm = CommentOnTask(request.POST)
             if createForm.is_valid():
                 title = createForm.cleaned_data['title']
                 desc = createForm.cleaned_data['desc']
@@ -61,6 +62,14 @@ def index(request):
                     t.users.add(request.user)
                 t.save()
                 return redirect('index')
+            elif commentOnTaskForm.is_valid():
+                parentTask = commentOnTaskForm.cleaned_data['parentTask']
+                content = commentOnTaskForm.cleaned_data['content']
+                t = Task.objects.get(pk=parentTask)
+                c = Comment(parentUser=request.user, parentTask=t, content=content)
+                c.save()
+                t.comments.add(c)
+                return redirect('index')
             else:
                 return redirect('index')
 
@@ -87,7 +96,6 @@ def getTeamQuerySet(query=None):
     return list(set(querySet))
 
 def buildIndexContext(request):
-    form = CreateTaskForm()
     tasks = Task.objects.filter(parentUser=request.user)
     tasksIncomplete = len(Task.objects.filter(parentUser=request.user, complete=False).order_by("-startDate"))
     taskComments = Comment.objects.filter(parentTask__in=tasks)
@@ -104,7 +112,6 @@ def buildIndexContext(request):
 
     # context can be used for rendering data to the html templates
     context = {
-        'form': form,
         'tasks': tasks,
         'taskComments': taskComments,
         'numTasks': numTasks,   

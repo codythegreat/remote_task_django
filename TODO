@@ -1,6 +1,3 @@
 + clean up create task from in index page
-+ user: add completed, tracking, post due task metrics
-+ activity views for daily, weekly and monthly 
-+ teams can be private, with ways to add other users
-+ On create new team, user is made the owner of the team. 
++ teams can add other users
 + Change meta tags prior to release

@@ -32,7 +32,15 @@
         {% for tt in tT %}
           {% for u in t.users.all %}
             {% if tt.parentUser == u and tt.parentUser != request.user and tt.complete != True %}
-        <p><span class="name">{{u}}</span><span class="task">{{tt}}</span><span class="task date">Due: {{tt.endDate}}</span></p>
+        <p class="team-task"><span class="name">{{u}}</span><span class="task">{{tt}}</span><span class="task date">Due: {{tt.endDate}}</span></p>
+        {% for comment in tt.comments.all %}
+          <p class="team-task-comment"><span class="comment-user">{{comment.parentUser}}</span> - {{comment}}</p>
+        {% endfor %}
+        <form class="team-task-comment-form" action="" method='POST'>{% csrf_token %}
+          <input class="task-to-comment" type="input" name="parentTask" value="{{ tt.pk }}">
+          <input class="comment-content" type='text' name='content' placeholder="Comment...">
+          <input class="submit-button" type='submit' value="Comment">
+        </form>
             {% endif %}
           {% endfor %}
         {% endfor %}
@@ -113,11 +121,22 @@
       <span class="value-text comment">{{comment.content}}</span>
       {% endif %}
       {% endfor %}
+      <div class="task-controls">
+        <form action='' method='POST'>{% csrf_token %}
+          <input class="task-to-comment" type="input" name="parentTask" value="{{ task.pk }}">
+          <input class="comment-input" type="input" name="content" placeholder="Comment...">
+          <button class="submit-comment" type="submit">Submit</button>
+        </form>
 
-      <form action='' method='POST'>{% csrf_token %}
-        <input id="task-to-complete" type="input" name="taskId" value="{{ task.pk}}">
-        <button class="complete" type='submit'>Complete</button>
-      </form>
+        <form class="task-complete-form" action='' method='POST'>{% csrf_token %}
+          <input class="task-to-complete" type="input" name="taskId" value="{{ task.pk}}">
+          <button class="complete" type='submit'>Complete</button>
+        </form>
+      </div>
+
+      <button class="task-enlarge-button">▼</button>
+
+
     </div>
     
 
@@ -139,10 +158,22 @@
       {% endif %}
       {% endfor %}
 
-      <form action='' method='POST'>{% csrf_token %}
-        <input id="task-to-complete" type="input" name="taskId" value="{{ task.pk }}">
-        <button class="complete" type='submit'>Complete</button>
-      </form>
+      <div class="task-controls">
+        <form action='' method='POST'>{% csrf_token %}
+          <input class="task-to-comment" type="input" name="parentTask" value="{{ task.pk }}">
+          <input class="comment-input" type="input" name="content" placeholder="Comment...">
+          <button class="submit-comment" type="submit">Submit</button>
+        </form>
+
+        <form class="task-complete-form" action='' method='POST'>{% csrf_token %}
+          <input class="task-to-complete" type="input" name="taskId" value="{{ task.pk}}">
+          <button class="complete" type='submit'>Complete</button>
+        </form>
+      </div>
+
+      <button class="task-enlarge-button">▼</button>
+
+
     </div>
       {% endif %}
 
@@ -163,6 +194,15 @@
       {% endif %}
       {% endfor %}
 
+      <div class="task-controls">
+        <form action='' method='POST'>{% csrf_token %}
+          <input class="task-to-comment" type="input" name="parentTask" value="{{ task.pk }}">
+          <input class="comment-input" type="input" name="content" placeholder="Comment...">
+          <button class="submit-comment" type="submit">Submit</button>
+        </form>
+      </div>
+
+      <button class="task-enlarge-button">▼</button>
     </div>
     {% endif %}
 
