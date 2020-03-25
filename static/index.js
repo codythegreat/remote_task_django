@@ -1,40 +1,69 @@
+// toggles line-through css property of parameter
+const toggleLegendLineThrough = (legendElement) => {
+    if (legendElement.css('text-decoration').includes('line-through')) {
+        legendElement.css('text-decoration', 'unset');
+    } else {
+        legendElement.css('text-decoration', 'line-through');
+    }
+};
+
+// ternary changes direction of arrow base on previous value
+const changeTaskEnlargeButtonArrowDirection = (taskEnlargeButton) => {
+    taskEnlargeButton.html(
+        taskEnlargeButton.html() == '▲' ? '▼' : '▲'
+    );
+};
+
+// on task toggle, show hide these elements
+const toggleHiddenChildrenOnTask = (task) => {
+    task.find('.comment').toggle();
+    task.find('.desc').toggle();
+    task.find('form').toggle();
+};
+
+// on task toggle, always hide form ID inputs
+const hideTaskIdFormInputs = (task) => {
+    task.find('input.task-to-complete').css('display', 'none');
+    task.find('input.task-to-comment').css('display', 'none');
+};
+
 $(document).ready(() => {
-    var comingUp = $('#legend-coming-up-text')
-    var pastDue = $('#legend-past-due-text')
-    var complete = $('#legend-completed-text')
-    var task = $('.task')
-    var teamTasks = $('#team-member-tasks')
-    var teamMembersContainer = $('#team-member-container')
+    // clickable legend elements
+    var legendComingUp = $('#legend-coming-up-text');
+    var legendPastDue = $('#legend-past-due-text');
+    var legendComplete = $('#legend-completed-text');
 
-    // on click of legend item, toggle corresponding tasks and line-through legend item
-    comingUp.click( () => {
-        if (comingUp.css('text-decoration').includes('line-through')) {comingUp.css('text-decoration', 'unset');}
-        else {comingUp.css('text-decoration', 'line-through');}
-        $('.task-noncomplete').toggle();
+    // tasks that are toggled by clicking legend elems
+    var tasksNonComplete = $('.task-noncomplete');
+    var tasksComplete = $('.task-complete');
+    var tasksPastDue = $('.task-past-due');
+
+    // toggle button for task to enlarge / minimize
+    var taskEnlargeButton = $('.task-enlarge-button');
+
+
+    var teamTasks = $('#team-member-tasks');
+    var teamMembersContainer = $('#team-member-container');
+
+    // on click of legend item, line-through legend and toggle associated tasks
+    legendComingUp.click( () => {
+        toggleLegendLineThrough(legendComingUp);
+        tasksNonComplete.toggle();
     });
-    pastDue.click( () => {
-        if (pastDue.css('text-decoration').includes('line-through')) {pastDue.css('text-decoration', 'unset');}
-        else {pastDue.css('text-decoration', 'line-through');}
-        $('.task-past-due').toggle();
+    legendPastDue.click( () => {
+        toggleLegendLineThrough(legendPastDue);
+        tasksPastDue.toggle();
     });
-    complete.click( () => {
-        if (complete.css('text-decoration').includes('line-through')) {complete.css('text-decoration', 'unset');}
-        else {complete.css('text-decoration', 'line-through');}
-        $('.task-complete').toggle();
+    legendComplete.click( () => {
+        toggleLegendLineThrough(legendComplete);
+        tasksComplete.toggle();
     });
 
-    // On sidebar task click, toggle the description and complete button
-    task.find('.task-enlarge-button').click(function() {
-        if ($( this ).html() == '▲') {
-            $( this ).html('▼');
-        } else {
-            $( this ).html('▲');
-        }
-        $( this ).parent().find('.comment').toggle();
-        $( this ).parent().find('.desc').toggle();
-        $( this ).parent().find('input.task-to-complete').css('display', 'none');
-        $( this ).parent().find('input.task-to-comment').css('display', 'none');
-        $( this ).parent().find('form').toggle();
+    // On sidebar task click, toggle the description and complete button task.find('.task-enlarge-button').
+    taskEnlargeButton.click(function() {
+        changeTaskEnlargeButtonArrowDirection($( this ));
+        toggleHiddenChildrenOnTask($( this ).parent());
+        hideTaskIdFormInputs($( this ).parent());
     });
 
     // on click of create task button, check fields for errors
